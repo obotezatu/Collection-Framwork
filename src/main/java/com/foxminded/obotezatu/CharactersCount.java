@@ -7,6 +7,17 @@ import java.util.Map;
 public class CharactersCount {
 
 	List<CashElement> cash;
+	
+	public CashElement getCountedletters(String text, Cash cash) {
+		CashElement item = new CashElement();
+		if (cash.getCash().containsKey(text)) {
+			return cash.getCash().get(text);
+		} else {
+			item = getCharactersCount(text);
+			cash.getCash().put(text, item);
+			return item;
+		}
+	}
 
 	private CashElement getCharactersCount(String text) {
 		CashElement item = new CashElement();
@@ -24,16 +35,5 @@ public class CharactersCount {
 		}
 		item.setCountedCharacters(charMap);
 		return item;
-	}
-
-	public CashElement getCountedletters(String text, Cash cash) {
-		CashElement item = new CashElement();
-		if (cash.getCash().containsKey(text)) {
-			return cash.getCash().get(text);
-		} else {
-			item = getCharactersCount(text);
-			cash.getCash().put(text, item);
-			return item;
-		}
 	}
 }
