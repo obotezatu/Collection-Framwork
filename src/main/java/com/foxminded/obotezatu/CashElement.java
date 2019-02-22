@@ -4,16 +4,7 @@ import java.util.Map;
 
 public class CashElement {
 
-	private String initialText;
 	Map<String, Integer> countedCharacters;
-
-	public String getInitialText() {
-		return initialText;
-	}
-
-	public void setInitialText(String initialText) {
-		this.initialText = initialText;
-	}
 
 	public Map<String, Integer> getCountedCharacters() {
 		return countedCharacters;

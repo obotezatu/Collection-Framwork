@@ -13,15 +13,15 @@ public class CharactersCount {
 		if (cash.getCash().containsKey(text)) {
 			return cash.getCash().get(text);
 		} else {
-			item = getCharactersCount(text);
+			item = getCharactersCount(text.toLowerCase());
 			cash.getCash().put(text, item);
 			return item;
 		}
 	}
 
 	private CashElement getCharactersCount(String text) {
-		CashElement item = new CashElement();
-		item.setInitialText(text);
+		CashElement item = new CashElement();		
+		//item.setInitialText(text);
 		String[] characters = text.split("");
 		Map<String, Integer> charMap = new LinkedHashMap<>();
 		for (String character : characters) {
