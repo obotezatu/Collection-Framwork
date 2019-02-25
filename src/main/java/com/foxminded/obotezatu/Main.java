@@ -1,15 +1,34 @@
 package com.foxminded.obotezatu;
 
+import java.util.Map;
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
-		String[] texts = { "Hello word", "Commons-Collections", "Ordered maps", "getting started", "Hello word",
-		"Commons-Collections" };
-		Cash cash = new Cash();
 		CharactersCount charactersCount = new CharactersCount();
-		for (String text : texts) {
-			System.out.println(text);
-			System.out.println(charactersCount.getCountedletters(text, cash).toString());
+		boolean finish = false;
+		try (Scanner inputText = new Scanner(System.in)) {
+			String text;
+			while (!finish) {
+				System.out.println("Next string (for exit \"n\"): ");
+				text = inputText.nextLine();
+				if (!text.equals("n")) {
+					System.out.println(printResult(charactersCount.getCountedletters(text)));
+				} else {
+					System.out.println("Program end");
+					finish = true;
+				}
+			}
 		}
+	}
+
+	public static String printResult(Map<String, Integer> charMap) {
+		StringBuilder printMap = new StringBuilder();
+		for (Map.Entry<String, Integer> entry : charMap.entrySet()) {
+			printMap.append(String.format("\"" + entry.getKey() + "\" - " + entry.getValue()))
+					.append(System.lineSeparator());
+		}
+		return printMap.toString();
 	}
 }

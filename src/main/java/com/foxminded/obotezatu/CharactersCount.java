@@ -1,39 +1,32 @@
 package com.foxminded.obotezatu;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CharactersCount {
 
-	List<CashElement> cash;
-	
-	public CashElement getCountedletters(String text, Cash cash) {
-		CashElement item = new CashElement();
-		if (cash.getCash().containsKey(text)) {
-			return cash.getCash().get(text);
-		} else {
-			item = getCharactersCount(text.toLowerCase());
-			cash.getCash().put(text, item);
-			return item;
+	private Map<String, Map<String, Integer>> cash = new HashMap<>();
+
+	public Map<String, Integer> getCountedletters(String text) {
+		if (!cash.containsKey(text)) {
+			cash.put(text, getCharactersCount(text.toLowerCase()));
 		}
+		return cash.get(text);
 	}
 
-	private CashElement getCharactersCount(String text) {
-		CashElement item = new CashElement();		
-		//item.setInitialText(text);
-		String[] characters = text.split("");
+	private Map<String, Integer> getCharactersCount(String text) {
 		Map<String, Integer> charMap = new LinkedHashMap<>();
+		String[] characters = text.split("");
 		for (String character : characters) {
 			if (!charMap.containsKey(character)) {
 				charMap.put(character, 1);
 			} else {
-				int val = charMap.get(character);
-				val++;
-				charMap.put(character, val);
+				int letterCount = charMap.get(character);
+				letterCount++;
+				charMap.put(character, letterCount);
 			}
 		}
-		item.setCountedCharacters(charMap);
-		return item;
+		return charMap;
 	}
 }
