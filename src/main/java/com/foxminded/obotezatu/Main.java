@@ -6,26 +6,25 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		CharactersCount charactersCount = new CharactersCount();
-		boolean finish = false;
+		CharactersQuantity charactersCount = new CharactersQuantity();
 		try (Scanner inputText = new Scanner(System.in)) {
 			String text;
-			while (!finish) {
+			while (true) {
 				System.out.println("Next string (for exit \"n\"): ");
 				text = inputText.nextLine();
 				if (!text.equals("n")) {
-					System.out.println(printResult(charactersCount.getCountedletters(text)));
+					System.out.println(printResult(charactersCount.getCharacters(text)));
 				} else {
 					System.out.println("Program end");
-					finish = true;
+					break;
 				}
 			}
 		}
 	}
 
-	public static String printResult(Map<String, Integer> charMap) {
+	public static String printResult(Map<Character, Integer> charMap) {
 		StringBuilder printMap = new StringBuilder();
-		for (Map.Entry<String, Integer> entry : charMap.entrySet()) {
+		for (Map.Entry<Character, Integer> entry : charMap.entrySet()) {
 			printMap.append(String.format("\"" + entry.getKey() + "\" - " + entry.getValue()))
 					.append(System.lineSeparator());
 		}

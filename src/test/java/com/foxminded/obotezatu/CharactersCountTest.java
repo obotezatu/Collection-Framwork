@@ -1,5 +1,6 @@
 package com.foxminded.obotezatu;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,11 +12,15 @@ import static org.junit.Assert.assertEquals;
 
 public class CharactersCountTest {
 
-	private CharactersCount charactersCount;
+	private CharactersQuantity charactersCount;
+	private Map<String, Map<Character, Integer>> cache;
 
 	@Before
 	public void setUp() {
-		charactersCount = new CharactersCount();
+		charactersCount = new CharactersQuantity();
+		cache = new HashMap<>();
+		cache.put("Hello word", charactersCount.getCharacters("Hi word"));
+		cache.put("Hi word", charactersCount.getCharacters("Hi word"));
 	}
 
 	@Test
@@ -29,7 +34,7 @@ public class CharactersCountTest {
 		expected.put("w", 1);
 		expected.put("r", 1);
 		expected.put("d", 1);
-		assertEquals(expected, charactersCount.getCountedletters("Hello word"));
+		assertEquals(expected, charactersCount.getCharacters("Hello word"));
 	}
 
 	@Test
@@ -43,7 +48,29 @@ public class CharactersCountTest {
 				.append("\"w\" - 1").append(lineSeparator())
 				.append("\"r\" - 1").append(lineSeparator())
 				.append("\"d\" - 1").append(lineSeparator());
-		assertEquals(expected.toString(), Main.printResult(charactersCount.getCountedletters("Hello word")));
+		assertEquals(expected.toString(), Main.printResult(charactersCount.getCharacters("Hello word")));
+	}
+	
+	@Test
+	public void testCacheUsing() {
+		Map<Character, Integer> expected = cache.get("Hello word");
+		Map<Character, Integer> current = cache.putIfAbsent("Hello word", countCharacters("Hello word".toLowerCase()));
+		assertEquals(expected, current);
+	}
+
+	private Map<Character, Integer> countCharacters(String text) {
+		Map<Character, Integer> charMap = new LinkedHashMap<>();
+		char[] characters = text.toCharArray();
+		for (Character character : characters) {
+			if (!charMap.containsKey(character)) {
+				charMap.put(character, 1);
+			} else {
+				int characterCount = charMap.get(character);
+				characterCount++;
+				charMap.put(character, characterCount);
+			}
+		}
+		return charMap;
 	}
 
 }
