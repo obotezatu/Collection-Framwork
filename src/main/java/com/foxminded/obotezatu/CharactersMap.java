@@ -7,12 +7,11 @@ public class CharactersMap implements Characters {
 
 	public Map<Character, Integer> createCharactersMap(String text) {
 		Map<Character, Integer> charMap = new LinkedHashMap<>();
-		char[] characters = text.toCharArray();
-		for (Character character : characters) {
+		text.chars().mapToObj(character -> (char) character).forEach(character -> {
 			int characterCount = charMap.getOrDefault(character, 0);
 			characterCount++;
 			charMap.put(character, characterCount);
-		}
+		});
 		return charMap;
 	}
 
