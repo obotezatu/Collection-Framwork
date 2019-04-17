@@ -2,20 +2,15 @@ package com.foxminded.obotezatu;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 import java.util.function.Function;
 
-public class CharacterCounter implements CharCounter {
+public class DistinctCharCounter implements CharCounter {
 
-	public Map<Character, Long> countChar(String text) {
+	public Map<Character, Long> countChars(String text) {
 		return text.chars()
 				.mapToObj(character -> (char) character)
-				.collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
-	}
-
-	public static void printResult(Map<Character, Long> map) {
-		for (Map.Entry<Character, Long> entry : map.entrySet()) {
-			System.out.println(("\"" + entry.getKey() + "\" - " + entry.getValue()));
-		}
+				.collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));
 	}
 }

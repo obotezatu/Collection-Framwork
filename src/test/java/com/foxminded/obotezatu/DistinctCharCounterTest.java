@@ -8,13 +8,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CharacterCounterTest {
+public class DistinctCharCounterTest {
 
 	private CharCounter charactersCount;
 
 	@Before
 	public void setUp() {
-		charactersCount = new CharacterCounter();
+		charactersCount = new DistinctCharCounter();
 	}
 
 	@Test
@@ -22,12 +22,12 @@ public class CharacterCounterTest {
 		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
 		expected.put('H', 1L);
 		expected.put('e', 1L);
-		expected.put('l', 2L);
+		expected.put('l', 3L);
 		expected.put('o', 2L);
 		expected.put(' ', 1L);
 		expected.put('w', 1L);
 		expected.put('r', 1L);
 		expected.put('d', 1L);
-		assertEquals(expected, charactersCount.countChar("Hello word"));
+		assertEquals(expected, charactersCount.countChars("Hello world"));
 	}
 }
