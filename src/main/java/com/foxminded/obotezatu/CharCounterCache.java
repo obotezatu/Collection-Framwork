@@ -3,17 +3,17 @@ package com.foxminded.obotezatu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DistinctCharCounterCache implements CharCounter {
+public class CharCounterCache implements CharCounter {
 
 	private Map<String, Map<Character, Long>> cache = new HashMap<>();
-	private DistinctCharCounter characters;
+	private CharCounter charCounter;
 
-	public DistinctCharCounterCache(DistinctCharCounter characters) {
-		this.characters = characters;
+	public CharCounterCache(CharCounter charCounter) {
+		this.charCounter = charCounter;
 	}
 
 	public Map<Character, Long> countChars(String text) {
-		return cache.computeIfAbsent(text, chars -> characters.countChars(chars));
+		return cache.computeIfAbsent(text, chars -> charCounter.countChars(chars));
 	}
 
 	public Map<String, Map<Character, Long>> getCache() {

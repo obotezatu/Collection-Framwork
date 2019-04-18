@@ -8,18 +8,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DistinctCharCounterTest {
+public class UniqueCharCounterTest {
 
 	private CharCounter charactersCount;
+	private Map<Character, Long> expected;
 
 	@Before
 	public void setUp() {
-		charactersCount = new DistinctCharCounter();
+		charactersCount = new UniqueCharCounter();
+		expected = new LinkedHashMap<Character, Long>();
 	}
 
 	@Test
-	public void testGetCountedletters() {
-		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
+	public void testGetCountedLetters() {
 		expected.put('H', 1L);
 		expected.put('e', 1L);
 		expected.put('l', 3L);
@@ -29,5 +30,10 @@ public class DistinctCharCounterTest {
 		expected.put('r', 1L);
 		expected.put('d', 1L);
 		assertEquals(expected, charactersCount.countChars("Hello world"));
+	}
+	
+	@Test 
+	public void testTakeVoidString() {
+		assertEquals(expected, charactersCount.countChars(""));
 	}
 }

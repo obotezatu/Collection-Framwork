@@ -1,34 +1,24 @@
 package com.foxminded.obotezatu;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import static org.junit.Assert.assertEquals;
+public class CharCounterCacheTest {
 
-public class DistinctCharCounterCacheTest {
-
-	private DistinctCharCounterCache charCounterCache;
-
+	private CharCounter charCounter;
+	private CharCounterCache distinctCharCounterCache;
+	
 	@Before
-	public void setUp() {
-		charCounterCache = new DistinctCharCounterCache(new DistinctCharCounter());
+	public void init() {
+		charCounter = mock(CharCounter.class);
+		distinctCharCounterCache = new  CharCounterCache(charCounter);
 	}
-
+	
 	@Test
-	public void testGetCountedletters() {
-		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
-		charCounterCache.countChars("Hello world");
-		expected.put('H', 1L);
-		expected.put('e', 1L);
-		expected.put('l', 3L);
-		expected.put('o', 2L);
-		expected.put(' ', 1L);
-		expected.put('w', 1L);
-		expected.put('r', 1L);
-		expected.put('d', 1L);
-		assertEquals(expected, charCounterCache.getCache().get("Hello world"));
+	public void testCharCounterCache() {
+		distinctCharCounterCache.countChars("text");
+		verify(charCounter).countChars("text");
 	}
 }

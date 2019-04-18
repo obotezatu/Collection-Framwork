@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 import java.util.function.Function;
 
-public class DistinctCharCounter implements CharCounter {
+public class UniqueCharCounter implements CharCounter {
 
 	public Map<Character, Long> countChars(String text) {
 		return text.chars()
