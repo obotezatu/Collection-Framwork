@@ -1,12 +1,12 @@
 package com.foxminded.obotezatu;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -14,19 +14,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UniqueCharCounterCacheTest {
-
-	private Map<Character, Long> expected;
+public class CacheCharCounterTest {
 
 	@Mock
 	private CharCounter charCounter;
 
 	@InjectMocks
-	CharCounter charCounterCache = new UniqueCharCounterCache(charCounter);
+	private CacheCharCounter charCounterCache;
 
-	@Before
-	public void init() {
-		expected = new LinkedHashMap<Character, Long>();
+	@Test
+	public void testCacheCountChars() {
+		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
 		expected.put('H', 1L);
 		expected.put('e', 1L);
 		expected.put('l', 3L);
@@ -35,13 +33,13 @@ public class UniqueCharCounterCacheTest {
 		expected.put('w', 1L);
 		expected.put('r', 1L);
 		expected.put('d', 1L);
-	}
-
-	@Test
-	public void testCharCounterCache() {
 		when(charCounter.countChars("Hello world")).thenReturn(expected);
+
 		charCounterCache.countChars("Hello world");
 		charCounterCache.countChars("Hello world");
+		Map<Character, Long> actual = charCounterCache.countChars("Hello world");
+
+		assertEquals(expected, actual);
 		verify(charCounter, times(1)).countChars("Hello world");
 	}
 }

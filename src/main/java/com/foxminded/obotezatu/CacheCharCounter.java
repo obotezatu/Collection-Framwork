@@ -3,12 +3,12 @@ package com.foxminded.obotezatu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UniqueCharCounterCache implements CharCounter {
+public class CacheCharCounter implements CharCounter {
 
 	private Map<String, Map<Character, Long>> cache = new HashMap<>();
 	private CharCounter charCounter;
 
-	public UniqueCharCounterCache(CharCounter charCounter) {
+	public CacheCharCounter(CharCounter charCounter) {
 		this.charCounter = charCounter;
 	}
 

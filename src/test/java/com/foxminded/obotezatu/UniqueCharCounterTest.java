@@ -10,17 +10,16 @@ import static org.junit.Assert.assertEquals;
 
 public class UniqueCharCounterTest {
 
-	private CharCounter charactersCount;
-	private Map<Character, Long> expected;
+	private UniqueCharCounter charCount;
 
 	@Before
 	public void setUp() {
-		charactersCount = new UniqueCharCounter();
-		expected = new LinkedHashMap<Character, Long>();
+		charCount = new UniqueCharCounter();
 	}
 
 	@Test
-	public void testGetCountedLetters() {
+	public void testCountChars() {
+		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
 		expected.put('H', 1L);
 		expected.put('e', 1L);
 		expected.put('l', 3L);
@@ -29,11 +28,15 @@ public class UniqueCharCounterTest {
 		expected.put('w', 1L);
 		expected.put('r', 1L);
 		expected.put('d', 1L);
-		assertEquals(expected, charactersCount.countChars("Hello world"));
+		
+		assertEquals(expected,charCount.countChars("Hello world"));
+		
 	}
 	
 	@Test 
 	public void testTakeVoidString() {
-		assertEquals(expected, charactersCount.countChars(""));
+		Map<Character, Long> expected = new LinkedHashMap<Character, Long>();
+		
+		assertEquals(expected, charCount.countChars(""));
 	}
 }

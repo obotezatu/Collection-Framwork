@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		CharCounter charCounter = new UniqueCharCounterCache(new UniqueCharCounter());
+		CharCounter charCounter = new CacheCharCounter(new UniqueCharCounter());
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
 				System.out.println("Next string (for exit \"n\"): ");
